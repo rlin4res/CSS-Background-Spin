@@ -1,0 +1,56 @@
+$angle: 0; //ângulo inicial do degradê - initial angle of the gradient
+$rotate: 2; //valor da rotação em graus - rotation value in degrees
+$bg-color1: #00ffa5; //primeira cor - first color
+$bg-color2: #42d9ff; //segunda cor - second color
+$bg-color3: #ff42a0; //terceira cor - third color
+$rgb1: 50; //não mude - don't change
+$rgb2: 255; //não mude - don't change
+$rgb3: 250; //não mude - don't change
+$duration: 8s; //duração da animação em segundos - duration of the animantion in seconds
+
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+body {
+    background: $bg-color1 fixed;
+    background-image: linear-gradient($angle+deg, rgba($rgb1, $rgb2, $rgb3, 1) , transparent);
+    animation-name: bg-spin, bg-color;
+    animation-duration: $duration, ($duration * 2);
+    animation-direction: alternate, normal;
+    animation-iteration-count: infinite;
+    //Para funcionar no Safari -  For Safari
+    -webkit-animation-name: bg-spin, bg-color;
+    -webkit-animation-duration: $duration, ($duration * 2);
+    -webkit-animation-direction: alternate, normal;
+    -webkit-animation-iteration-count: infinite;
+}
+h1 {
+    margin: 100px auto;
+    font-family: 'Times New Roman', sans-serif;
+    font-size: 4vw;
+    color: black;
+    text-align: center;
+    text-shadow: 0 0 2px rgba(0,0,0,0.5);
+}
+@keyframes bg-color {
+    0% {background-color: $bg-color1;}
+    30% {background-color: $bg-color2;}
+    80% {background-color: $bg-color3;}    
+}
+//Para funcionar no Safari -  For Safari
+@-webkit-keyframes bg-color {
+    0% {background-color: $bg-color1;}
+    30% {background-color: $bg-color2;}
+    80% {background-color: $bg-color3;}    
+}
+//Não consegui fazer funcionar no Safari - I could not function in Safari
+@keyframes bg-spin {
+    @for $percent from 0 through 100 {
+        #{$percent}% {background-image: linear-gradient(#{($angle)}deg, rgba($rgb1, $rgb2, $rgb3, 1), transparent);}
+        $angle: $angle + $rotate;
+        $rgb1: $rgb1 + 2.55;
+        $rgb2: $rgb2 - 1.275;
+        $rgb3: $rgb3 - 0.6375;
+    } 
+}
